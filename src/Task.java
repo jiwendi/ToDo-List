@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +26,7 @@ public class Task {
 		
 	}
 	
-	//Add a tak to the list
+	//Add a task to the list
 	public void addTask(String description) {
 	
 		
@@ -53,10 +56,23 @@ public class Task {
 	}
 		
  }
-	
+
+	public void displayTasks() throws IOException {
+		
+			
+		FileReader fr = new FileReader(filepath);
+		BufferedReader br = new BufferedReader(fr);
+		
+		StringBuilder fullText = new StringBuilder();
+	    for (String line; (line = br.readLine()) != null; fullText.append(line)) {
+	        System.out.println(line);
+		
+       
+	}
 	
 		
-	}
+}
+}
 	
 	
 	
