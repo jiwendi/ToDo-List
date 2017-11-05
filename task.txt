@@ -1,27 +1,5 @@
-No.1|Buy Breat at Willys, then go to the
-	library to borrow the novels i saw on
-	friday. At 4pm pick Victoria from school
-
-No.2|Call Celestine at 3pm
-
-No.3|Meeting with Davids school on friday at
-	12:30pm
-
-No.1|Buy Breat at Willys, then go to the
-	library to borrow the novels i saw on
-	friday. At 4pm pick Victoria from school
-
-No.2|Call Celestine at 3pm
-
-No.3|Meeting with Davids school on friday at
-	12:30pm
-
-No.1|Buy Breat at Willys, then go to the
-	library to borrow the novels i saw on
-	friday. At 4pm pick Victoria from school
-
-No.2|Call Celestine at 3pm
-
-No.3|Meeting with Davids school on friday at
-	12:30pm
+MEETING|parents meeting in davids school. 3pm tuesday.|Priority: MEDIUM
+SHOPPING|buy milk , cheese and eggs on the way home.|Priority: HIGH
+FRIDAY EVENTS|buy ballons, order the cake and call up the guys for friday celebration.|Priority: LOW
+INTERVIEW|Description:interview at spotify on 5th december at 4pm|Priority: HIGH
 

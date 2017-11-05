@@ -1,78 +1,72 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.text.WordUtils;
 
 public class Task {
-	private int ID = 1;
+	private String title;
 	private String description;
 	private String priority;
-	private String filepath = "task.txt";
-	private Map<Integer, String> tasks = tasks = new HashMap();
+	
+	
+	
+	
 	
 
+
+	public Task() {}
 	
-	public Task() {
+	
+	
+	public String toString() {
 		
+		return title + ": " + description + ":---------------------------- " +  priority +  " \n\t";
 	}
 	
-	//Add a task to the list
-	public void addTask(String description) {
-	
-		
-		 String newDescription = WordUtils.wrap(description, 40, "\n\t",true);
-			
-			 
-		tasks.put(ID, newDescription);
-		
-		
-		try {
-			if(description !=null) {
-			FileWriter fw = new FileWriter(filepath, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
-					
-			pw.println("No."+ ID + "|"+ tasks.get(ID) + "\n");
-			System.out.println("No."+ID +"|"+"\t"+ tasks.get(ID) + "\n");
-			ID++;
-			pw.flush();
-			pw.close();
-			
-			
-			}
-					
-		} catch (IOException e) {
-			System.out.println("No task added");
+
+
+	public String getTitle() {
+		return title;
 	}
-		
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+
+	public String getPriority() {
+		return priority;
+	}
+
+
+
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+
+
+
+	
+	
+	
  }
 
-	public void displayTasks() throws IOException {
-		
-			
-		FileReader fr = new FileReader(filepath);
-		BufferedReader br = new BufferedReader(fr);
-		
-		StringBuilder fullText = new StringBuilder();
-	    for (String line; (line = br.readLine()) != null; fullText.append(line)) {
-	        System.out.println(line);
-		
-       
-	}
 	
-		
-}
-}
+
 	
 	
 	

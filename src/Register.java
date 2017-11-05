@@ -1,38 +1,43 @@
 
 public class Register {
-	private String fName;
-	private String lName;
+		private String userName;
+	private String password;
 	
 	
 	
-	public Register(String fName, String lName) {
-		super();
-		this.fName = fName;
-		this.lName = lName;
+	public Register() {
+		
 	}
 
 
 
-	public String getfName() {
-		return fName;
+	public String getUserName() {
+		return userName;
 	}
 
 
 
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
 
-	public String getlName() {
-		return lName;
+	public String getPassword() {
+		return password;
+	}
+ 
+	public String toString() {
+				
+		return "Your login details are: " + userName + password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
 
-	public void setlName(String lName) {
-		this.lName = lName;
-	}
 
 }
