@@ -1,4 +1,7 @@
 
+//This class is for setting and getting user name and password
+package toDoList;
+
 public class Register {
 		private String userName;
 	private String password;

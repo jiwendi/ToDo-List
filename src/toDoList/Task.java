@@ -1,14 +1,31 @@
 
+package toDoList;
+
 
 public class Task {
 	private String title;
 	private String description;
 	private String priority;
+	private String dueDate;
 	
 	
 	
+
+
 	
-	
+
+
+
+	public String getDueDate() {
+		return dueDate;
+	}
+
+
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
+
 
 
 	public Task() {}
@@ -59,7 +76,7 @@ public class Task {
 
 
 
-
+	
 	
 	
 	

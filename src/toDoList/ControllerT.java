@@ -1,45 +1,69 @@
-import java.io.BufferedReader;
+/**This class represents the controller class for the tasks in the To Do List.
+ *  All functions relating to the task class that is required from the user interface is handled through this controller.
+**/
+package toDoList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.Random;
 import java.util.TreeMap;
 
-import org.apache.commons.text.RandomStringGenerator;
-import org.apache.commons.text.WordUtils;
 
-public class ControllerT {
+
+public class ControllerT extends ToDoAbstract{
 	
 	private static String filepath = "task.txt";
 	private  List<Task> tasks = new ArrayList<>();
-	private List<String> savedTasks = new LinkedList<String>();
+	Map<String,String>taskData = new TreeMap<>();
 	private Scanner input;
 	private FileWriter fw;
 	private BufferedWriter bw;
 	private PrintWriter pw;
+	private static View view = new View(); 
+	private Task myTasks = new Task();
 	
-	public ControllerT(){}
 	
+
+	/**The controller takes no parameters but loads the savedTaskHM method which reads 
+	the text file with saved tasks into a hash map and gives immediate access to display tasks
+	**/
 	
-	
-	public void addTask(){ 
+	public ControllerT(){
+			
+		getFilepath();
+		try {
+			saved();
+		} catch (Exception e) {
+			System.out.println("File could not be read");
+		}
+		
+		
 				
-		Task myTasks = new Task();
+	}
+	
+	
+	
+	public  static String getFilepath() {
+		return filepath;
+		
+		
+	}
+
+
+//Tasks are added into an ArrayList which is saved in a text file. A printout of the added task(s) is shown to the user.
+	void add(){ 
+				
+		
 		input = new Scanner(System.in);
+		
 		 
 		System.out.println("Add a task TITLE:\n");
 		 String title = input.nextLine().toUpperCase().trim();
@@ -50,8 +74,13 @@ public class ControllerT {
 		 System.out.println("Set a PRIORITY: LOW, MEDIUM, HIGH: \n");
 		 String priority = input.nextLine().toUpperCase().trim();
 		 myTasks.setPriority(priority);
-		 	
+		 System.out.println("Enter Task due date yyy MM dd e.g 2017/11/26:\n");
+		 String dd = input.nextLine();
+		 myTasks.setDueDate(dd);		 
+		 	 	
 		 tasks.add(myTasks);
+		 
+		 
 				
 		
 		try {
@@ -62,10 +91,10 @@ public class ControllerT {
 				pw = new PrintWriter(bw);
 			
 				
-				 pw.println(myTasks.getTitle() + "|" + "Description:         " + myTasks.getDescription() + "|"  + "Priority: " + myTasks.getPriority() + "\n");
+				 pw.println(myTasks.getTitle() + "|" +  myTasks.getDescription() + ">>>>>>>>>>"  + "Priority: " + myTasks.getPriority() +  "|"+ " Due Date " + myTasks.getDueDate());
 				 pw.flush();
 				 pw.close();
-				 
+				 saved();
 			}
 				 
 			}catch (IOException e) {
@@ -73,165 +102,180 @@ public class ControllerT {
 				System.out.println("No task added");
 			}
 		
-			System.out.println("|Task added !! \n| " + "The Task title: " + myTasks.getTitle().toString()+ "\n" + "|Description: " + myTasks.getDescription() +"\n" + "Priority: " + myTasks.getPriority()+"\n" );
-			taskOptions();
+			System.out.println("|Task added !! \n| " + "The Task title: " + myTasks.getTitle().toString()+ "\n" + "|Description: " + myTasks.getDescription() +"\n" + "Priority: " + myTasks.getPriority() + "\n" + "Due Date" + myTasks.getDueDate()+"\n" );
+			System.out.println("_____________________________________\n\n\t");
+			view.loggedIn();
 		
 }
 
+	//This method displays all the tasks stored and how many they are.
 
-
-	public void savedTasks() throws IOException {
+	void display() {
+		
+		System.out.println("-------------You have : " + taskData.size() + " Tasks-------------\n");
 		
 			System.out.println("              Your To Do List !!");
-			    
-		try {
 			
-			BufferedReader reader;
-			reader = new BufferedReader(new FileReader(filepath));
-			String line;
-			
-			while ((line = reader.readLine()) != null) {
-				
-				this.savedTasks.add(line);
+			String key = " ";
+			for(Map.Entry<String, String> entry : taskData.entrySet()) {
+			     key = entry.getKey();
+			    System.out.println("Task Title:" + key + "\n" + "Description: " + taskData.get(key));
 			}
-				savedTasks.forEach(System.out::println);
-				reader.close();
-				
-			} catch (FileNotFoundException e) {
-			
-			System.out.println("File not found");
-		}
+			    
+							
+				System.out.println("________________________________________________________________________________\n\t");
+				view.loggedIn();
 	}
-
-	public void removeTask() throws IOException {
+	
+	
+	void remove() {
 		
-		savedTasks();
-		 
+			 
 		System.out.println("_________________________________________________________________________________");
-		System.out.println("_________________________________________________________________________________");
-		System.out.println("What No task will you remove.   \n" );
+		System.out.println("_________________________________________________________________________________\n");
+		System.out.println("Enter task TITLE to remove.   " );
 		 
-		input= new Scanner(System.in);
-		int index = input.nextInt();
-		savedTasks.remove(index);
-		savedTasks.forEach(System.out::println);
-		
+		input = new Scanner(System.in);
+		String title = input.nextLine().toUpperCase().trim();
+			
+		if(taskData.containsKey(title)) {
+			
+			taskData.remove(title);
+			System.out.println("Task has been removed" );
+		 }else{
+			 System.out.println("Task not found !\n");
+			 
+			 System.out.println("_____________________________________\n\n\t");
+		 }
+			System.out.println("-------------You have : " + taskData.size() + " Tasks left-------------\n");
+		      view.loggedIn();
   }
 	
          
 		
-	public void taskOptions() {
+	//All tasks are searched for using the task title as a  key for the hashmap.
+	
+	 void search() {
 		
-		input= new Scanner(System.in);
-		View view = new View();
-		String n = null;
-		System.out.println("Do you want to add anoter task? Y = yes, N = no \n");
-		String choice = input.nextLine().trim().toLowerCase();
-		 if( (choice.equalsIgnoreCase("y"))) {
-			 
-					addTask();
-					
-			} else if (choice.equals("n")) {
+		
+		
+		System.out.println("____________WELCOME TO SEARCH !!________\n\n\t");
+		System.out.println("Enter TASK TITLE to search for: \n-----------------------------------");
+		
+			input = new Scanner(System.in);
+			String searchTerm = input.nextLine().toUpperCase().trim();
+			if(taskData.containsKey(searchTerm)){
+				//String match = taskData.get(searchTerm);
+				System.out.println(taskData.get(searchTerm));
 				
-				view.loggedIn();
 			}else {
-				 
-				view.loggedIn();
+				
+				System.out.println("Task not found");
 			}
+			
+			System.out.println("_____________________________________\n\n\t");
+					view.loggedIn();
 	}
-	public void searchTasks() {
-		
-		String title = " "; String description = " "; String priority = " ";
-		System.out.println("Enter Task title: ");
-		Scanner inputu = new Scanner(System.in);
-		String term = inputu.nextLine().trim().toUpperCase();
-		boolean found = false;
-		
-		
-				try {
-					 input= new Scanner(new File(filepath));
-				
-				     input.useDelimiter("[|\n]");
-				
-				  																
-					while(input.hasNext() && !found){
-						
-						title = input.next();
-						description = input.next();
-						priority = input.next();
-					
-						if(title.contains(term) ){
-					
-					    found = true;
-					   }
-				 		
-					}
-						if (found) {
-							
+	
 
-						    System.out.print(title + ",     |" + description + ",     |" + priority + "\n");
-				 		}
-						else {
-							System.out.print("Error");
-						}
+		
+		//This methods reads data from the text file and store in a HashMap 
+	
+	public void saved() {
+		
+		String title = " "; String description = " ";  
+				
+			try {
+				  input= new Scanner(new File(filepath));
+			
+				  input.useDelimiter("[\n]");
+			
+			       String row ="";
+			     
+			  																
+			       while(input.hasNext()){
+					
+						row = input.next();
 						
-							inputu.close();
-				} catch (FileNotFoundException e) {
-					
-					System.out.println("file not found");
-				}	
-			}
-	public void deleteTask() {
-		
-		String tempFile = "temp.txt";
-		File oldFile = new File(filepath);
-		File newFile = new File(tempFile);
-		String title = " "; String description = " "; String priority = " ";
-		
-		
-	try {
-		  System.out.println("Enter Task title to delete task: ");
-		  Scanner inputU = new Scanner(System.in);
-		  String term = inputU.nextLine().trim().toUpperCase();
-		  
-		  
-		  fw = new FileWriter(tempFile, true);
-			bw = new BufferedWriter(fw);
-			pw = new PrintWriter(bw);
-			input = new Scanner(new File(filepath));
-			input.useDelimiter("[|\n]");
-			
-			while(input.hasNext()) {
+						// title |, description| due_date
+						title = row.substring(0, row.indexOf('|'));
+						description = row.substring(row.indexOf("|"));
+												
+						this.taskData.put(title,description);
+					}	 
+			       			input.close();
+			       			       			
+					} catch(Exception e) {
+	
+							System.out.println("File not found");
+					}
 				
-				title = input.next();
-				description = input.next();
-				priority = input.next();
-				
-				if(!title.equals(term)) {
-					
-					pw.println(title + "|" + "Description:         " + description + "|"  + "Priority: " + priority + "\n");
-				}
-				
-			}
-				input.close();
-				inputU.close();
-				pw.flush();
-				pw.close();
-				oldFile.delete();
-				File dump = new File(filepath);
-		        newFile.renameTo(dump);
-		
-		
-		}
-		catch(Exception e) {
-			System.out.println("Error");
-		}
-			
-		}
-		
 	}
 	
 	
+	
+		//This methods prints out todays date and tasks due date
+		public void taskStatus() {
+			
+			
+		
+
+			String taskBody = " ";  String dueDate = " "; String description = " "; 
+			
+			
+				  try {
+					input= new Scanner(new File(filepath));
+				} catch (FileNotFoundException e) {
+					System.out.println("Cannot read data file");
+				}
+			
+				  input.useDelimiter("[\n]");
+			
+			       String row =null;
+			       System.out.println("________________________________YOUR PENDING TASKS___________________________________");
+			  															
+			      while((input.hasNext())){
+			    	   row = input.next();
+					try {	
+			    	  
+			    		
+						//Separating the task body(Title and description) from the due date as text file is read	
+			    	   
+						taskBody = row.substring(0, row.indexOf('|'));
+						String temp =row.substring(row.indexOf("|")+1);
+						description = temp.substring(0,temp.indexOf("|")+1);
+						dueDate = temp.substring(temp.indexOf("|")+1);
+						
+						
+						System.out.println("Task Title:" + taskBody + "\n" +description + "\n");
+			    	 
+			    	   
+						SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+						Date today = new Date();
+					   	
+								
+								String todayDate = 	 sdf.format(today);
+								System.out.println("Task due date is: "+ dueDate + "\n"+ "Todays date is:" + todayDate);
+									System.out.println("_______________________________");
+									
+							} catch (Exception e) {
+									
+								System.out.println("No more elements to read");
+								}  
+			       
+			       				}	input.close();
+			       				view.loggedIn();
+										
+			       			       			
+			      	
+			       
+		}
+		
+		
+}
+
+		
+
 
 	
 
