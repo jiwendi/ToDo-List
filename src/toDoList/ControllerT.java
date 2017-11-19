@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,17 +22,16 @@ import java.util.TreeMap;
 public class ControllerT extends ToDoAbstract{
 	
 	private static String filepath = "task.txt";
-	private  List<Task> tasks = new ArrayList<>();
+	List<Task> tasks = new ArrayList<>();
 	Map<String,String>taskData = new TreeMap<>();
 	private Scanner input;
 	private FileWriter fw;
 	private BufferedWriter bw;
 	private PrintWriter pw;
 	private static View view = new View(); 
-	private Task myTasks = new Task();
+	Task myTasks = new Task();
 	
 	
-
 	/**The controller takes no parameters but loads the savedTaskHM method which reads 
 	the text file with saved tasks into a hash map and gives immediate access to display tasks
 	**/
@@ -58,30 +58,17 @@ public class ControllerT extends ToDoAbstract{
 	}
 
 
-//Tasks are added into an ArrayList which is saved in a text file. A printout of the added task(s) is shown to the user.
+/**Tasks are added into an ArrayList which is saved in a text file. 
+ * They are also added to a hash map that will be used throughout the program with the key to get value. 
+ * A printout of the added task(s) is shown to the user.
+	
+	**/
 	void add(){ 
-				
 		
-		input = new Scanner(System.in);
-		
-		 
-		System.out.println("Add a task TITLE:\n");
-		 String title = input.nextLine().toUpperCase().trim();
-		 myTasks.setTitle(title);
-		 System.out.println("Add a DESCRIPTION:\n");
-		 String desc = input.nextLine().toLowerCase().trim();
-		 myTasks.setDescription(desc);
-		 System.out.println("Set a PRIORITY: LOW, MEDIUM, HIGH: \n");
-		 String priority = input.nextLine().toUpperCase().trim();
-		 myTasks.setPriority(priority);
-		 System.out.println("Enter Task due date yyy MM dd e.g 2017/11/26:\n");
-		 String dd = input.nextLine();
-		 myTasks.setDueDate(dd);		 
-		 	 	
-		 tasks.add(myTasks);
-		 
-		 
-				
+		// Updating the hash Map with newly added task
+		String title = myTasks.getTitle().toString();
+		String description = "|" +  myTasks.getDescription().toString() + ">>>>>> "  + "Priority: " + myTasks.getPriority().toString() + ">>>>> " + " Due Date " + "|" + myTasks.getDueDate().toString();
+		this.taskData.put(title,description);
 		
 		try {
 			if(myTasks !=null) {
@@ -90,11 +77,11 @@ public class ControllerT extends ToDoAbstract{
 				bw = new BufferedWriter(fw);
 				pw = new PrintWriter(bw);
 			
+				pw.println(myTasks.getTitle() + "|" +  myTasks.getDescription() + ">>>>>> "  + "Priority: " + myTasks.getPriority() + ">>>>> " + " Due Date " + "|" + myTasks.getDueDate());
 				
-				 pw.println(myTasks.getTitle() + "|" +  myTasks.getDescription() + ">>>>>>>>>>"  + "Priority: " + myTasks.getPriority() +  "|"+ " Due Date " + myTasks.getDueDate());
 				 pw.flush();
 				 pw.close();
-				 saved();
+				 
 			}
 				 
 			}catch (IOException e) {
@@ -102,8 +89,9 @@ public class ControllerT extends ToDoAbstract{
 				System.out.println("No task added");
 			}
 		
-			System.out.println("|Task added !! \n| " + "The Task title: " + myTasks.getTitle().toString()+ "\n" + "|Description: " + myTasks.getDescription() +"\n" + "Priority: " + myTasks.getPriority() + "\n" + "Due Date" + myTasks.getDueDate()+"\n" );
+			System.out.println("|Task added !! \n| " + "The Task title: " + myTasks.getTitle().toString()+ "\n" + "|Description: " + myTasks.getDescription() +"\n" + "Priority: " + myTasks.getPriority() + "\n" + "Due Date " + myTasks.getDueDate());
 			System.out.println("_____________________________________\n\n\t");
+
 			view.loggedIn();
 		
 }
@@ -121,11 +109,12 @@ public class ControllerT extends ToDoAbstract{
 			     key = entry.getKey();
 			    System.out.println("Task Title:" + key + "\n" + "Description: " + taskData.get(key));
 			}
-			    
-							
+			    						
 				System.out.println("________________________________________________________________________________\n\t");
 				view.loggedIn();
+				
 	}
+	
 	
 	
 	void remove() {
@@ -141,6 +130,7 @@ public class ControllerT extends ToDoAbstract{
 		if(taskData.containsKey(title)) {
 			
 			taskData.remove(title);
+					
 			System.out.println("Task has been removed" );
 		 }else{
 			 System.out.println("Task not found !\n");
@@ -148,6 +138,7 @@ public class ControllerT extends ToDoAbstract{
 			 System.out.println("_____________________________________\n\n\t");
 		 }
 			System.out.println("-------------You have : " + taskData.size() + " Tasks left-------------\n");
+			
 		      view.loggedIn();
   }
 	
@@ -214,16 +205,15 @@ public class ControllerT extends ToDoAbstract{
 	
 	
 	
-		//This methods prints out todays date and tasks due date
-		public void taskStatus() {
-			
-			
+		//This methods prints out todays date and tasks due date. Compares them to determine if task is overdue or pending and calculate the percentage of each task status
 		
-
-			String taskBody = " ";  String dueDate = " "; String description = " "; 
+	public void taskStatus() {
+		
+			String taskTitle = " ";  String dueDate = " " ; String description = " "; 
+			double overDueCount = 0; double pendingCount = 0; double dueTodayCount = 0; double total = taskData.size();
 			
 			
-				  try {
+		 try {
 					input= new Scanner(new File(filepath));
 				} catch (FileNotFoundException e) {
 					System.out.println("Cannot read data file");
@@ -232,46 +222,78 @@ public class ControllerT extends ToDoAbstract{
 				  input.useDelimiter("[\n]");
 			
 			       String row =null;
-			       System.out.println("________________________________YOUR PENDING TASKS___________________________________");
+			       System.out.println("________________________________YOUR TASKS Status___________________________________");
+			       
 			  															
 			      while((input.hasNext())){
 			    	   row = input.next();
-					try {	
-			    	  
-			    		
-						//Separating the task body(Title and description) from the due date as text file is read	
+		try {
+			 //Reading text file to separating the task body(Title and description) from the due date	
 			    	   
-						taskBody = row.substring(0, row.indexOf('|'));
+						taskTitle = row.substring(0, row.indexOf('|'));
 						String temp =row.substring(row.indexOf("|")+1);
 						description = temp.substring(0,temp.indexOf("|")+1);
 						dueDate = temp.substring(temp.indexOf("|")+1);
 						
 						
-						System.out.println("Task Title:" + taskBody + "\n" +description + "\n");
+						System.out.println("Task Title:" + taskTitle);
 			    	 
-			    	   
+		  	// Comparing the due date read from the file with current date(todays date) to determine status of task i.e due or overdue and calculating the percentage of each 
+						
 						SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+						Date taskDate = null;						
 						Date today = new Date();
-					   	
-								
-								String todayDate = 	 sdf.format(today);
-								System.out.println("Task due date is: "+ dueDate + "\n"+ "Todays date is:" + todayDate);
-									System.out.println("_______________________________");
-									
-							} catch (Exception e) {
+						
+					taskDate = sdf.parse(dueDate);
+					
+					if(today.before(taskDate)) {
+						
+						
+						System.out.println("Task is pending");
+						System.out.println("due date is: "+ dueDate + "\n"+ "Todays date is:" + today);
+						System.out.println("_______________________________");
+						
+						pendingCount ++;
+					
+					  }else if(taskDate.before(today)) {
+						
+						System.out.println("Task is overdue");
+						System.out.println("due date is: "+ dueDate + "\n"+ "Todays date is:" + today);
+						System.out.println("_______________________________");
+						overDueCount++;
+						
+					 }else {						
+						System.out.println("Task is due today");
+						System.out.println("due date is: "+ dueDate + "\n"+ "Todays date is:" + today);
+						System.out.println("_______________________________");
+						dueTodayCount++; 
+						
+					  }
+					
+				     }catch (Exception e) {
 									
 								System.out.println("No more elements to read");
-								}  
-			       
-			       				}	input.close();
+								}
+			 	 }input.close();
+			 	
+			 	 
+			 // Calculating percentage of overdue, due and pending tasks
+			 	
+			 	
+			 	 double percentPending = Math.round(((pendingCount/total)*100)*100.0)/100;
+			 	 double percentOverDue = Math.round(((overDueCount/total)*100)*100.0)/100;
+			 	 double percentToday = Math.round(((dueTodayCount/total)*100)*100.0)/100;
+			 	 
+			 	  System.out.println("====================================================================\n");
+				  System.out.println("                      SUMMARY                     \n                  You have: " + taskData.size() +" Tasks\n\n" + "   PENDING: " + pendingCount + " - " + percentPending + "% , " + "   OVERDUE: " + overDueCount + " - " + percentOverDue + "%," + "   DUE TODAY: " + dueTodayCount + " - " + percentToday + "%" );
+				  System.out.println("====================================================================\n");
 			       				view.loggedIn();
-										
-			       			       			
+								
+			    			       			
 			      	
 			       
 		}
-		
-		
+	
 }
 
 		

@@ -1,24 +1,22 @@
-SHOPPING|>>>>>>>>>>>buy milk cheese and eggs on the way home.>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|08-05-2017
-FRIDAY EVENTS|>>>>>>>>>>>buy ballons, order the cake and call up the guys for friday celebration.>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-11
-INTERVIEW|>>>>>>>>>>>interview at spotify on 5th december at 4pm.>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2017-12-15
-SJ TRIP|>>>>>>>>>>>sj train time has been changed to 8:15an>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-10-11
-TEST|>>>>>>>>>>>android test on friday. reach chapter 5-6>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-10-20
-PROJECT|>>>>>>>>>>>convert project to android>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-11
-GYM|>>>>>>>>>>>go to gym on friday>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-10-11
-TERMINAL|>>>>>>>>>>>new train terminal is platform 5>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2018-12-01
-REGISTER|>>>>>>>>>>>register for new phone at www.new.com>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2017-12-27
-DATABASE|>>>>>>>>>>>create database before Tuesday>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-11-18
-MEETING|>>>>>>>>>>>parents meeting in school at 3pm friday>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-11-26
-MVC|>>>>>>>>>>>read chapter 6 on design patterns before wednesday class>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date|2017-12-13
-CALLS|>>>>>>>>>>>make phone call to dentist before leaving on saturday>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2018-01-12
-BIRTHDAY|>>>>>>>>>>>gugus birthday, call before 2pm>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-12-11
-BABAY|>>>>>>>>>>>baby joys birthday tomorow, buy a gift.>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2017-06-11
-CONTROLLERS|>>>>>>>>>>>remember to create controller pages in eclipse>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-19
 TOILETRIES|>>>>>>>>>>>buy toothpaste and toiletrolls>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2017-11-14
-CLIMBING|>>>>>>>>>>>monday night, 5th november.climbing with the girls.>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-09-11
-TRIP|>>>>>>>>>>>travelling on monday to umea>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-14
-JOHN VISIT|>>>>>>>>>>>john commin on friday>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-12
-CHESS|>>>>>>>>>>>master chess rules>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-10-11
-TENNIS|>>>>>>>>>>>wimbledon starts on monday, tune tv>>>>>>>>>>Priority: MEDIUM>>>>>>>>>>Due Date:|2017-01-11
-RIDE TO KNIVSTA|>>>>>>>>>>>stop at knivsta on teh way home>>>>>>>>>>Priority: HIGH>>>>>>>>>>Due Date:|2017-10-11
-DAVID|>>>>>>>>>>>meeting for football parents>>>>>>>>>>Priority: LOW>>>>>>>>>>Due Date:|2017-12-16
+CINEMA|going to the movies with deola dont forget to call>>>>>>>>>>Priority: LOW>>>>>>Due Date|2017-12-01
+READ JSON|chapter 2 and 3 by tuesday>>>>>>>>>>Priority: LOW>>>>>>Due Date|2017-11-22
+TRIP|traveling on friday, buy stuff needed>>>>>>>>>>Priority: HIGH>>>>>Due Date|2017-11-17
+SHOOPING|buy milk and eggs>>>>>>>>>>Priority: MEDIUM>>>>>>Due Date|2017-11-14
+MEETING|meeting with davids school>>>>>>>>>>Priority: LOW>>>>>Due Date|2017-11-19CHOIR|
+choir| meeting at 5pm>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date |2017-11-17
+GROUP MEETING|meeting with group to discuss scrum project>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date|2017-11-06
+TRAIN TIME|train time for friday changed>>>>>>>>>>Priority: HIGH>>>>>>>>>> Due Date|2017-11-18
+CAKE|remember to order cake on friday>>>>>>>>>>Priority: MEDIUM>>>>>>>>>> Due Date|2017-11-27
+BIO|bio at 6pm with paris next week>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date|2017-11-30
+AIRLINE|buy airline ticket for christmas>>>>>>>>>>Priority: HIGH>>>>>>>>>> Due Date|2017-12-20
+JOY|joy is going to the moon>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date|2018-04-19
+MATHLAB|read mathlab>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date |2017-12-10
+MILK|buy 1 liter>>>>>>>>>>Priority: HIGH>>>>>>>>>> Due Date |2017-11-18
+FOOTBALL|watch match saturday>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date |2017-11-18
+CARROTS|buy carrot on way home>>>>>>>>>>Priority: HIGH>>>>>>>>>> Due Date |2017-11-18
+TESTING2|more tests>>>>>>>>>>Priority: LOW>>>>>>>>>> Due Date |2017-11-19
+SINGING|join club>>>>>>>>>>Priority: MEDIUM>>>>>>>>>> Due Date |2017-11-22
+JOY IWENDI|joy iwendi>>>>>> Priority: HIGH>>>>>  Due Date |2017-12-25
+TTT|we are here>>>>>> Priority: LOW>>>>>  Due Date |2017-11-29
+PROJECT|submit individual project to phillip>>>>>> Priority: HIGH>>>>>  Due Date |2018-01-11

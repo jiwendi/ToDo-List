@@ -32,7 +32,7 @@ public class Register {
  
 	public String toString() {
 				
-		return "Your login details are: " + userName + password;
+		return "Your login details are:\n" + "Username: " + userName + "\nPassword:  " + password;
 	}
 
 

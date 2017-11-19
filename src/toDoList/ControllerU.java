@@ -9,16 +9,22 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ControllerU extends ToDoAbstract {
 	
-	private Map<String, String> userData = new HashMap<>();
-	private String filepath = "userData.txt";
+	Map<String, String> userData = new HashMap<>();
+	List<Register> data = new ArrayList<>();
+	private String filepath = "Userdata.txt";
 	private Scanner input = new Scanner(System.in);
-	View view;
+	private static View view= new View();
+	Register register= new Register();
+	private String key = " "; String value = "";
 	
 // the text file with stored user data is loaded with the constructor for immediate use for verification or user creation	
 	public ControllerU() {
@@ -34,29 +40,16 @@ public class ControllerU extends ToDoAbstract {
 /**New user registration username and password are collected from new users and into a hash map and stored in a text file. 
 	A printed statement of the username and password is shown to the user after registration.
 **/	
-	protected void add() {
-		view= new View();
-		Register user = new Register();
-						 
-		System.out.println("Enter desired username:  ");
-		 String username = input.nextLine().toLowerCase().trim();
-		 user.setUserName(username);
-		 System.out.println("Enter desired password:  ");
-		 String pass = input.nextLine().toLowerCase().trim().toString();
-		 user.setPassword(pass);
-		 
-		 
-		 
-		 userData.put(username,pass);
-		 
-		 
+	public void add() {
+			
+		  
 				 FileWriter fw;
 				try {
 					fw = new FileWriter(filepath, true);
 				
 				 BufferedWriter bw = new BufferedWriter(fw);
 				 PrintWriter pw = new PrintWriter(bw);
-				 pw.println(username + "," + pass + "\n");
+				 pw.println("\n" + register.getUserName() + "," + register.getPassword());
 					
 				 pw.flush();
 				 pw.close(); 
@@ -65,7 +58,7 @@ public class ControllerU extends ToDoAbstract {
 					System.out.println("File cannot be read");
 				}
 					System.out.println("##################################################");
-					System.out.println("Welcome : Your new login details are: \n\tYour username is :" + username + " & Your password is: " + pass);
+					System.out.println("Welcome:" + register.toString());
 			 
 					view.loggedIn(); 
 	
@@ -73,31 +66,34 @@ public class ControllerU extends ToDoAbstract {
 	
 	
  // This method verifies a registered user, by checking the hashmap that has stored data from the text file .
-	 void verifyLogin() {
-		view = new View();
-		
+	public  void verifyLogin() {
+	
+			
 		System.out.println("Enter username: ");
 		String name = input.nextLine();
 		System.out.println("Enter password: ");
-		String pass = input.nextLine();
+		String pass = input.nextLine().trim();
 		 
-		    	 if(userData.containsKey(name)) {
-		    		 	    		
-		    		 if(userData.get(name).equals(pass)){
-		    
-		    		 view.loggedIn();
-		    	    }
-		    	 }else {
-		    		 System.out.println("Username not found. Press 1 to register an account");
-		    		 view.begin();
-    		   
-	    		}
-			
+		
+		
+		for(Map.Entry<String, String> entry : userData.entrySet()) {
+		     key = entry.getKey(); value = entry.getValue();
+		    		
+		     	if(key.equals(name)) {
+		     		if (value.equals(pass)){
+		     			
+		    			 view.loggedIn();
+		    	        }else {
+			    		    System.out.println("Username or password incorrect. Press 1 to register an account");
+			    		    view.begin();
+		    		}
+	    		        }
+		}
 		    	
 }
 			
 //This method reads the text file with stored user data and loads it into a hash map- This method is loaded with the constructor
-	 void saved(){
+	public void saved(){
 	
 		    
 		String username = " "; String password = " "; 
@@ -129,11 +125,13 @@ public class ControllerU extends ToDoAbstract {
     }
 	 
 	 
-	void display() {
+	public void display() {
 		  view = new View();
-			System.out.println("              User List !! There are: " + userData.size() + "  users \nUsername for all users:\n");
+			
+		  System.out.println("              User List !! There are: " + userData.size() + "  users \nUsername for all users:\n");
 				
 				String key = " ";
+				
 				for(Map.Entry<String, String> entry : userData.entrySet()) {
 				     key = entry.getKey();
 				    System.out.println( key + "\n");
@@ -145,8 +143,8 @@ public class ControllerU extends ToDoAbstract {
 		}
 		
 		
-	 void remove() {
-			view = new View();
+	public void remove() {
+			
 			
 				 
 			System.out.println("_________________________________________________________________________________");
@@ -156,24 +154,34 @@ public class ControllerU extends ToDoAbstract {
 			input = new Scanner(System.in);
 			String username = input.nextLine().toLowerCase().trim();
 			
-			if(userData.containsKey(username)) {
-				
-				userData.remove(username);
-				System.out.println("user has been removed" );
-			 }else{
-				 System.out.println("User not found !\n");
+				if(userData.containsKey(username)) {
+					userData.remove(username);
+				}else{
+			    	 	System.out.println("User not found !\n");
 				 
-				 System.out.println("_____________________________________\n\n\t");
+			    	 	System.out.println("_____________________________________\n\n\t");
 			 }
-				System.out.println("-------------You have : " + userData.size() + " users left-------------\n");
-			      view.loggedIn();
+			     	System.out.println("-------------You have : " + userData.size() + " users left-------------\n");
 				
-			      view.loggedIn();
+			     			view.loggedIn();
+				
 	  }
 		
 	         
 		
-		
+		public void getLostPass() {
+			
+			System.out.println("Enter username:  ");
+			 String username = input.nextLine().toLowerCase().trim();
+			 
+			 if(userData.containsKey(username)) {
+				 System.out.println("Your password is: " + userData.get(username));
+			 }else {
+				 
+				 System.out.println("Username not found");
+			 }
+			 
+		}
 		
 
 }

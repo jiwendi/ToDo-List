@@ -16,7 +16,7 @@ public class View {
 		System.out.println("_____________________________________________________________________________________");
 		System.out.println("_____________________________________________________________________________________");
 		
-		System.out.println("                          Press 1 to LOGIN IN\n\t\tNot registered? Press 2 to CREATE ACCOUNT");
+		System.out.println("                          Press 1 to LOGIN IN\n\t\tNot registered? Press 2 to CREATE ACCOUNT\n\tForgot your password? Press 3 to GET YOUR PASSWORD");
 		
 		
 				
@@ -29,7 +29,10 @@ public class View {
 						user.verifyLogin();
 							break;
 					case 2 :
-							user.add();
+							registerUser();
+							break;
+					case 3 :
+							user.getLostPass();
 							break;
 					default:
 						System.out.println("Try again. Choose a valid number");
@@ -41,10 +44,10 @@ public class View {
 	
 	public void loggedIn() {
 			
-		System.out.println("_____________________________________________________________________________________");
-		System.out.println("					WHAT WOULD YOU LIKE TO DO?\n");
+		System.out.println("\n\n\n____________________________________________________________________________________");
 		
-		System.out.println("What would you like to do?\n\n 1 = ADD A TASK\n2 = REMOVE A TASK\n3 = SEARCH FOR A TASK\n4 = DISPLAY ALL TASKS\n5 = Status of tasks\n6 = Display all users\n7 = Remove a user\n8 = EXIT\n---------------------\n\t");
+		
+		System.out.println("What would you like to do?\n\n      TASK OPTIONS !!    \n\n1 = ADD A TASK\n2 = REMOVE A TASK\n3 = SEARCH FOR A TASK\n4 = DISPLAY ALL TASKS\n5 = STATUS OF TASKS(DUE OR OVERDUE)\n\n\n        USER OPTIONS!!!   \n\n6 = DISPLAY ALL USERS\n7 = REMOVE A USER\n8 = EXIT\n---------------------\n\t");
 		
 		
 		int  choice = input.nextInt();
@@ -53,7 +56,7 @@ public class View {
 				switch(choice){
 					
 				case 1 :
-					taskController.add();
+					addTask();
 					break;
 				case 2 :
 			try {
@@ -67,7 +70,7 @@ public class View {
 					break;
 				case 4 :
 			try {
-				taskController.display();
+				displayTask();
 			} catch (Exception e) {
 				System.out.println("File not found");
 			}
@@ -92,7 +95,49 @@ public class View {
 							
 				}
 					
+		public void addTask() {
+			
+			input = new Scanner(System.in);
+			
+			 
+			System.out.println("Add a task TITLE:\n");
+			 String title = input.nextLine().toUpperCase().trim();
+			taskController.myTasks.setTitle(title);
+			 System.out.println("Add a DESCRIPTION:\n");
+			 String desc = input.nextLine().toLowerCase().trim();
+			 taskController.myTasks.setDescription(desc);
+			 System.out.println("Set a PRIORITY: LOW, MEDIUM, HIGH: \n");
+			 String priority = input.nextLine().toUpperCase().trim();
+			 taskController.myTasks.setPriority(priority);
+			 System.out.println("Enter Task due date yyy MM dd e.g 2017-11-26:\n");
+			 String dd = input.nextLine();
+			 taskController.myTasks.setDueDate(dd);		 
+			 	 	
+			 taskController.tasks.add(taskController.myTasks);
+			 taskController.add();
+		}
+		
+		public void displayTask() {
+			
+			taskController.display();
+		}
+		
+		
+		public void registerUser() {
+			
+			input = new Scanner(System.in);
+			 
+				System.out.println("Enter desired Username:\n");
+				String username = input.nextLine().toLowerCase().trim();
+				user.register.setUserName(username);
+				System.out.println("Enter desired Password:\n");
+				String pass = input.nextLine().toLowerCase().trim().toString();
+				user.register.setPassword(pass);
+				
 
+				 user.data.add(user.register);
+				 user.add();
+		}
 	}
 			
 				

@@ -15,8 +15,8 @@ public class Main {
 		View view = new View();
 		view.begin();
 		
-		
-		 
+/*	ControllerT t = new ControllerT();
+		t.add();*/
 		
 	}
 
